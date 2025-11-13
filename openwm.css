@@ -1,0 +1,47 @@
+body {
+    background-color: #ccc;
+}
+.container {
+    padding-bottom: 10px;
+}
+.otsikko {
+    background-color: green;
+    color: #ccc;
+    padding: 0.8em;
+    margin-bottom: 20px;
+}
+.footer {
+    background-color: green;
+    color: #ccc;
+    padding-top: 10px;
+    padding-bottom: 1px;
+    margin-top: 60px;
+    text-align: center;
+    
+}
+
+.kuva {
+    background-color: rgb(136, 101, 101);
+    border: 1px solid black;
+    width: 100px;
+    height: 175px;
+    padding: 0px;
+    margin: 0px;
+    
+}
+.kuva p {
+    position: relative;
+    bottom: 25px;
+    text-align: center;
+    color: #eee;
+    
+    margin: 0px;
+    margin-top: 3px;
+}
+
+.forecast {
+    margin-bottom: 20px;
+}
+h4 {
+    font-size: larger;
+}
