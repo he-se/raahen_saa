@@ -9,10 +9,7 @@ async function haeSaatiedot() {
   const data = await response.json();
   //   console.log(data);
 
-  document.querySelector("#saaAika").innerHTML = new Date(data.dt * 1000)
-    .toLocaleString()
-    .split(" ")[2]
-    .slice(0, -3);
+  document.querySelector("#saaAika").innerHTML = formatSuomiAika(data.dt, true);
   document.querySelector("#temp").innerHTML =
     "<h3>" +
     data.name +
@@ -95,7 +92,7 @@ async function haeSaaennuste() {
   );
   // const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=Raahe&appid={API key}`);
   const data = await response.json();
-  //   console.log(data);
+  // console.log(data);
   const paivat = ["Tänään", "Huomenna", "Ylihuomenna"];
   const weekday = [
     "Sunnuntai",
@@ -107,12 +104,9 @@ async function haeSaaennuste() {
     "Lauantai",
   ];
 
-  document.querySelector("#ennusteAika").innerHTML = new Date(
-    data.list[0].dt * 1000
-  )
-    .toLocaleString()
-    .slice(0, -3)
-    .replace(" ", " klo ");
+  // document.querySelector("#ennusteAika").innerHTML = formatSuomiAika(
+  //   data.list[0].dt
+  // );
   let h4 = "";
   for (let day = 0; day < data.list.length; day++) {
     if (day < 2) {
@@ -156,6 +150,36 @@ async function haeSaaennuste() {
   }
 }
 haeSaaennuste();
+
+function formatSuomiAika(dt, long = true) {
+  // Muunna sekunneista millisekunneiksi
+  const date = new Date(dt * 1000);
+
+  // Määritä Suomen aika ja halutut osat
+  const options = {
+    timeZone: "Europe/Helsinki",
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  };
+
+  const formatter = new Intl.DateTimeFormat("fi-FI", options);
+  const parts = formatter.formatToParts(date);
+
+  const day = parts.find((p) => p.type === "day").value;
+  const month = parts.find((p) => p.type === "month").value;
+  const year = parts.find((p) => p.type === "year").value;
+  const hour = parts.find((p) => p.type === "hour").value;
+  const minute = parts.find((p) => p.type === "minute").value;
+  if (long) {
+    return `${day}.${month}.${year} klo ${hour}.${minute}`;
+  }
+  // palauta lyhyt
+  return `klo ${hour}.${minute}`;
+}
 
 // api.openweathermap.org/data/2.5/forecast/daily?q={city name},{country code}&cnt={cnt}&appid={API key}
 
