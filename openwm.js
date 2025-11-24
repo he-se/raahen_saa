@@ -3,11 +3,10 @@
 
 // async funktio, joka hakee säätiedot ja tulostaa sen
 async function haeSaatiedot() {
-  const response = await fetch(
-    `https://api.openweathermap.org/data/2.5/weather?q=Raahe&units=metric&lang=fi&appid=e271d816b087806ee3edcee914d3fcc4`
-  );
+  // haetaan säätiedot backendin kautta (voidaan piilottaa api-avain)
+  const response = await fetch("/api/weather");
   const data = await response.json();
-  //   console.log(data);
+  // console.log(data);
 
   document.querySelector("#saaAika").innerHTML = formatSuomiAika(data.dt, true);
   document.querySelector("#temp").innerHTML =
