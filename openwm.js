@@ -86,12 +86,11 @@ haeSaatiedot();
 
 // async funktio, joka hakee sääennusteen ja tulostaa sen
 async function haeSaaennuste() {
-  const response = await fetch(
-    `https://api.openweathermap.org/data/2.5/forecast/daily?q=Raahe&cnt=7&units=metric&lang=fi&appid=e271d816b087806ee3edcee914d3fcc4`
-  );
-  // const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=Raahe&appid={API key}`);
+  // haetaan säätiedot backendin kautta (voidaan piilottaa api-avain)
+  const response = await fetch("/api/forecast");
   const data = await response.json();
   // console.log(data);
+
   const paivat = ["Tänään", "Huomenna", "Ylihuomenna"];
   const weekday = [
     "Sunnuntai",
@@ -179,17 +178,3 @@ function formatSuomiAika(dt, long = true) {
   // palauta lyhyt
   return `klo ${hour}.${minute}`;
 }
-
-// api.openweathermap.org/data/2.5/forecast/daily?q={city name},{country code}&cnt={cnt}&appid={API key}
-
-/* 
-// snippet: huomisen päivmäärän luominen
-function addOneDay(date) {
-  date.setDate(date.getDate() + 1);
-  return date;
-}
-
-const date = new Date;
-const huominen = addOneDay(date);
-const ylihuominen = addOneDay(date); 
-*/
